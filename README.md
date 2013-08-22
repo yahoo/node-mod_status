@@ -42,6 +42,14 @@ Configuration
    * `text` - Provide custom response text, will override all the above. Default: `null`
    * `check` - A function to check the request to see if the status page should be shown. Default: `returns true to always show`
 
+Example Output
+--------------
+
+   * `OK` - Default
+   * `OK - NodeJS: v0.10.17` - From `version: true`
+   * `OK - Uptime: 2 days, 3 hours, 4 minutes` - From `uptime: true`
+   * `OK - NodeJSL v0.10.17 - Uptime: 2 days, 3 hours, 4 minutes` - From `uptime: true & version: true`
+   * `WORKS` - From `text: 'WORKS'`
 
 Build Status
 ------------
