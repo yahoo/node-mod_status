@@ -2,7 +2,7 @@
     "name": "mod_status",
     "description": "mod_status for Node",
     "author": "Dav Glass <davglass@gmail.com>",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "dependencies": {
         "timethat": "*"
     },
