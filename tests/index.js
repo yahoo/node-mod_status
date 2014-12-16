@@ -41,11 +41,12 @@ var tests = {
             var fn = mod_status(),
                 code = null,
                 next = false,
-                text = null;
+                text = null,
+                req = {
+                    url: '/status.html'
+                };
 
-            fn({
-                url: '/status.html'
-            }, {
+            fn(req, {
                 writeHead: function(c) {
                     code = c;
                 },
@@ -59,7 +60,8 @@ var tests = {
             return {
                 code: code,
                 text: text,
-                next: next
+                next: next,
+                parsedUrl : req.parsedUrl
             };
         },
         'next should be false': function(topic) {
@@ -70,6 +72,9 @@ var tests = {
         },
         'code should be 200': function(topic) {
             assert.equal(topic.code, 200);
+        },
+        'request should be stamped with parse_url': function(topic) {
+            assert.isObject(topic.parsedUrl);
         }
     },
     'should send bad response': {
@@ -227,7 +232,48 @@ var tests = {
         'code should be 200': function(topic) {
             assert.equal(topic.code, 200);
         }
+    },
+    'should use parsedUrl if its already there': {
+        topic: function() {
+            var fn = mod_status(),
+                code = null,
+                next = false,
+                text = null,
+                req = {
+                    url: '/foo',
+                    parsedUrl : {
+                        pathname : '/status.html'
+                    }
+                };
+
+            fn(req, {
+                writeHead: function(c) {
+                    code = c;
+                },
+                end: function(d) {
+                    text = d;
+                }
+            }, function() {
+                next = true;
+            });
+            
+            return {
+                code: code,
+                text: text,
+                next: next
+            };
+        },
+        'next should be false': function(topic) {
+            assert.isFalse(topic.next);
+        },
+        'data should be OK': function(topic) {
+            assert.equal(topic.text, 'OK');
+        },
+        'code should be 200': function(topic) {
+            assert.equal(topic.code, 200);
+        }
     }
+    
 };
 
 
