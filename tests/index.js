@@ -61,7 +61,7 @@ var tests = {
                 code: code,
                 text: text,
                 next: next,
-                url_parsed : req.url_parsed
+                parsedUrl : req.parsedUrl
             };
         },
         'next should be false': function(topic) {
@@ -74,7 +74,7 @@ var tests = {
             assert.equal(topic.code, 200);
         },
         'request should be stamped with parse_url': function(topic) {
-            assert.isObject(topic.url_parsed);
+            assert.isObject(topic.parsedUrl);
         }
     },
     'should send bad response': {
@@ -233,7 +233,7 @@ var tests = {
             assert.equal(topic.code, 200);
         }
     },
-    'should use url_parsed if its already there': {
+    'should use parsedUrl if its already there': {
         topic: function() {
             var fn = mod_status(),
                 code = null,
@@ -241,7 +241,7 @@ var tests = {
                 text = null,
                 req = {
                     url: '/foo',
-                    url_parsed : {
+                    parsedUrl : {
                         pathname : '/status.html'
                     }
                 };
